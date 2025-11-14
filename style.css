@@ -1,0 +1,135 @@
+:root {
+  --bg1: #0f172a;
+  --bg2: #0b1220;
+  --card: rgba(255,255,255,0.02);
+  --accent: #9b6aff;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Inter", "Noto Sans TC", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, var(--bg1), var(--bg2));
+  color: #e6eef8;
+}
+
+.wrap {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.card {
+  width: 100%;
+  max-width: 800px;
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 28px;
+  border-radius: 16px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent), #5ad0ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #051028;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.lead {
+  color: #bcd2ff;
+  font-size: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  display: block;
+  color: #bcd2ff;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #fff;
+}
+
+button {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 0;
+  background: linear-gradient(90deg, var(--accent), #5ad0ff);
+  color: #051028;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button.ghost {
+  background: transparent;
+  color: #bcd2ff;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.btns {
+  display: flex;
+  gap: 10px;
+}
+
+.result {
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+}
+
+.big {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 8px 0;
+}
+
+.muted {
+  color: #9fb6e6;
+  font-size: 13px;
+}
+
+footer {
+  margin-top: 18px;
+  font-size: 13px;
+  color: #9fb6e6;
+  text-align: right;
+}
