@@ -1,42 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐕 DOG 歲數計算機</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DOG 歲數計算機</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<main class="stage">
+<section class="card" aria-labelledby="title">
+<!-- 頂部圖片：覆蓋面板頂部邊緣，但非頁面背景 -->
+<img class="dog-img" src="https://petswowo.com/upload_imgs/20250331/1743400428_8888830a36caf7dc5137.jpg" alt="狗狗圖片" />
 
-    <div class="container">
-        <h1>DOG 歲數計算機</h1>
 
-        <div class="input-section">
-            <label for="birthdate">請輸入狗狗的出生年月日：</label>
-            <input type="date" id="birthdate" value="2023-02-28">
-            <button onclick="calculateAge()">計算年齡</button>
-        </div>
+<h1 id="title">DOG 歲數計算機</h1>
+<p class="lead">輸入狗狗名稱與出生日期，會自動計算狗狗實際年齡（年，含小數）與換算後的人類年齡（整數）。</p>
 
-        <div class="result-section">
-            <div class="result-box">
-                <h2>狗狗實際年齡</h2>
-                <p id="dog-age" class="age-display">--</p>
-            </div>
-            <div class="result-box human-age-box">
-                <h2>換算人類年齡</h2>
-                <p id="human-age" class="age-display">--</p>
-                <small>（公式：$16 \times \ln(\text{狗狗年齡}) + 31$）</small>
-            </div>
-        </div>
-        
-        <hr>
 
-        <div class="example-section">
-            <h3>範例：妙麗 (Hermione)</h3>
-            <p>出生年月日：**2023/2/28**</p>
-        </div>
-    </div>
+<form id="dogForm" onsubmit="return false;" class="form">
+<div class="row">
+<div class="field" style="flex:1">
+<label for="name">狗狗名稱</label>
+<input id="name" type="text" value="妙麗" autocomplete="off">
+</div>
+<div class="field" style="width:150px;">
+<label for="dob">出生日期</label>
+<input id="dob" type="date" value="2023-02-28">
+</div>
+</div>
 
-    <script src="script.js"></script>
+
+<div class="controls">
+<button class="btn" id="calcBtn" type="button">計算</button>
+<button class="btn" id="nowBtn" type="button">現在</button>
+</div>
+
+
+<div id="result" class="result" aria-live="polite"></div>
+<div class="help">* 計算公式：人類年齡 = 16 × ln(狗狗年齡) + 31（ln為自然對數）</div>
+</form>
+</section>
+</main>
+
+
+<script src="script.js"></script>
 </body>
 </html>
