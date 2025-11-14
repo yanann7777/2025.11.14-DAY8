@@ -1,38 +1,51 @@
 body {
     margin: 0;
+    padding: 0;
     font-family: "Noto Sans TC", sans-serif;
-    background-color: #f2f2f2;
-}
-
-.container {
+    background-color: #f5f5f5;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     height: 100vh;
 }
 
-.left-image img {
-    height: 100vh;
+/* 計算機卡片 */
+.calculator {
+    background: white;
+    width: 350px;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+    padding: 20px 28px 30px 28px;
+    position: relative;
+    text-align: center;
+}
+
+/* 頂部圖片 */
+.top-image {
+    width: calc(100% + 56px);
+    margin-left: -28px;
+    margin-top: -28px;
+    border-radius: 14px 14px 0 0;
+    overflow: hidden;
+}
+
+.top-image img {
+    width: 100%;
+    height: 180px;
     object-fit: cover;
 }
 
-.calculator {
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    width: 320px;
-    margin-left: -100px; /* 讓白色卡片向左壓在圖片上，像示例 */
-    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
-}
-
-.calculator h2 {
-    margin-top: 0;
+/* 標題 */
+h2 {
+    margin-top: 20px;
     margin-bottom: 20px;
     font-size: 22px;
     font-weight: 700;
 }
 
+/* 表單區 */
 .input-group {
+    text-align: left;
     margin-bottom: 15px;
 }
 
@@ -40,25 +53,24 @@ label {
     display: block;
     margin-bottom: 6px;
     font-weight: 600;
-    font-size: 15px;
 }
 
 input {
     width: 100%;
     padding: 10px;
-    font-size: 14px;
     border-radius: 6px;
     border: 1px solid #ccc;
+    font-size: 14px;
 }
 
+/* 按鈕 */
 button {
     width: 100%;
-    padding: 12px;
-    margin-top: 10px;
     background: #4a90e2;
-    color: #fff;
+    color: white;
     border: none;
-    border-radius: 6px;
+    padding: 12px;
+    border-radius: 8px;
     font-size: 15px;
     cursor: pointer;
 }
@@ -67,12 +79,13 @@ button:hover {
     background: #3578c8;
 }
 
+/* 結果提示框 */
 .result-box {
     margin-top: 20px;
-    background: #f7f7f7;
+    background: #fafafa;
     padding: 15px;
     border-radius: 8px;
-    font-size: 15px;
+    text-align: left;
     line-height: 1.6;
-    color: #333;
+    font-size: 15px;
 }

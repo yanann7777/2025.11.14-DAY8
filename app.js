@@ -12,12 +12,11 @@ document.getElementById("calcBtn").addEventListener("click", function () {
         return;
     }
 
-    // 計算人類年齡 (16 × ln(狗齡) + 31)
     const humanAge = 16 * Math.log(dogAgeYears) + 31;
 
     const dogAgeFixed = dogAgeYears.toFixed(1);
     const humanAgeFixed = Math.round(humanAge);
 
     document.getElementById("result").innerText =
-        `${dogName} 現在大約 ${dogAgeFixed} 歲狗狗年齡，換算成人類年齡大約是 ${humanAgeFixed} 歲。`;
+        `${dogName} 現在在大約 ${dogAgeFixed} 歲狗狗年齡，換算成人類年齡大約是 ${humanAgeFixed} 歲。`;
 });
