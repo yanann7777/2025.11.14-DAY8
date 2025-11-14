@@ -1,48 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DOG 歲數計算機</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>狗狗年齡計算機</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main class="stage">
-<section class="card" aria-labelledby="title">
-<!-- 頂部圖片：覆蓋面板頂部邊緣，但非頁面背景 -->
-<img src="dog-img" src="https://ibb.co/ZpscX1D2" alt="狗狗圖片" />
 
+<div class="container">
 
-<h1 id="title">DOG 歲數計算機</h1>
-<p class="lead">輸入狗狗名稱與出生日期，會自動計算狗狗實際年齡（年，含小數）與換算後的人類年齡（整數）。</p>
+    <!-- 左側圖片 -->
+    <div class="left-image">
+        <img src="dog.jpg" alt="dog">
+    </div>
 
+    <!-- 右側計算面板 -->
+    <div class="calculator">
+        <h2>🐶 妙麗歲數計算機</h2>
 
-<form id="dogForm" onsubmit="return false;" class="form">
-<div class="row">
-<div class="field" style="flex:1">
-<label for="name">狗狗名稱</label>
-<input id="name" type="text" value="妙麗" autocomplete="off">
+        <div class="input-group">
+            <label>狗狗的名稱：</label>
+            <input type="text" id="dogName" value="妙麗">
+        </div>
+
+        <div class="input-group">
+            <label>狗狗的出生日期：</label>
+            <input type="date" id="birthDate" value="2023-02-28">
+        </div>
+
+        <button id="calcBtn">開始計算</button>
+
+        <div id="result" class="result-box"></div>
+    </div>
+
 </div>
-<div class="field" style="width:150px;">
-<label for="dob">出生日期</label>
-<input id="dob" type="date" value="2023-02-28">
-</div>
-</div>
 
-
-<div class="controls">
-<button class="btn" id="calcBtn" type="button">計算</button>
-<button class="btn" id="nowBtn" type="button">現在</button>
-</div>
-
-
-<div id="result" class="result" aria-live="polite"></div>
-<div class="help">* 計算公式：人類年齡 = 16 × ln(狗狗年齡) + 31（ln為自然對數）</div>
-</form>
-</section>
-</main>
-
-
-<script src="script.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
