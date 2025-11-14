@@ -1,54 +1,42 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>狗狗年齡計算器</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐕 DOG 歲數計算機</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <header>
-        <div class="logo">VC</div>
-        <div>
-          <h1>狗狗年齡計算器</h1>
-          <p class="lead">輸入狗狗出生日期，即可計算狗狗年齡與換算後的人類年齡。</p>
-        </div>
-      </header>
 
-      <div class="grid">
-        <div>
-          <label for="birth">狗狗出生日期</label>
-          <input id="birth" type="date">
+    <div class="container">
+        <h1>DOG 歲數計算機</h1>
+
+        <div class="input-section">
+            <label for="birthdate">請輸入狗狗的出生年月日：</label>
+            <input type="date" id="birthdate" value="2023-02-28">
+            <button onclick="calculateAge()">計算年齡</button>
         </div>
 
-        <div>
-          <label for="size">體型</label>
-          <select id="size">
-            <option value="medium" selected>中型犬（預設）</option>
-            <option value="small">小型犬</option>
-            <option value="large">大型犬</option>
-          </select>
+        <div class="result-section">
+            <div class="result-box">
+                <h2>狗狗實際年齡</h2>
+                <p id="dog-age" class="age-display">--</p>
+            </div>
+            <div class="result-box human-age-box">
+                <h2>換算人類年齡</h2>
+                <p id="human-age" class="age-display">--</p>
+                <small>（公式：$16 \times \ln(\text{狗狗年齡}) + 31$）</small>
+            </div>
         </div>
+        
+        <hr>
 
-        <div class="full btns">
-          <button id="calc">計算年齡</button>
-          <button class="ghost" id="reset">重設</button>
+        <div class="example-section">
+            <h3>範例：妙麗 (Hermione)</h3>
+            <p>出生年月日：**2023/2/28**</p>
         </div>
-
-        <div class="full result">
-          <div class="muted">狗狗實際年齡</div>
-          <div class="big" id="dogAge">—</div>
-          <div class="muted">換算成人類年齡</div>
-          <div class="big" id="humanAge">—</div>
-        </div>
-      </div>
-
-      <footer>Made with Vibe ✨</footer>
     </div>
-  </div>
 
-  <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

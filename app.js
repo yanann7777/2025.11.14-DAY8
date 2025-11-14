@@ -1,76 +1,56 @@
-const $ = id => document.getElementById(id);
+/**
+ * DOG 歲數計算機 (script.js)
+ * * 計算狗狗的實際年齡和換算後的人類年齡。
+ */
 
-// 計算日期差
-function dateDiff(from, to) {
-  if (to < from) return null;
+function calculateAge() {
+    const birthdateInput = document.getElementById('birthdate').value;
+    const dogAgeDisplay = document.getElementById('dog-age');
+    const humanAgeDisplay = document.getElementById('human-age');
+    
+    // 檢查輸入是否有效
+    if (!birthdateInput) {
+        alert("請選擇狗狗的出生年月日！");
+        dogAgeDisplay.textContent = '--';
+        humanAgeDisplay.textContent = '--';
+        return;
+    }
 
-  let years = to.getFullYear() - from.getFullYear();
-  let months = to.getMonth() - from.getMonth();
-  let days = to.getDate() - from.getDate();
+    const birthDate = new Date(birthdateInput);
+    const currentDate = new Date();
 
-  if (days < 0) {
-    months -= 1;
-    const prevMonthDays = new Date(to.getFullYear(), to.getMonth(), 0).getDate();
-    days += prevMonthDays;
-  }
-  if (months < 0) {
-    years -= 1;
-    months += 12;
-  }
+    // 1. 計算狗狗的實際年齡（以年為單位）
 
-  const totalDays = Math.floor((to - from) / (1000 * 60 * 60 * 24));
-  const totalYears = totalDays / 365.2425;
+    // 計算兩個日期之間毫秒數的差異
+    const diffInMilliseconds = currentDate - birthDate;
+    
+    // 將毫秒數轉換為年 (使用平均每年 365.25 天來計算閏年)
+    const millisecondsPerYear = 1000 * 60 * 60 * 24 * 365.25;
+    const dogAgeInYears = diffInMilliseconds / millisecondsPerYear;
 
-  return { years, months, days, totalYears };
+    // 2. 換算為人類年齡 (公式: 16 * In(狗狗年齡) + 31)
+    
+    let humanAge;
+    
+    if (dogAgeInYears < 1) {
+        // 幼犬年齡處理：如果狗狗不滿 1 歲，直接使用比例或設定最低年齡來避免 ln(x) 負數/零的問題。
+        // 這裡我們取一個最低值，讓結果不會太小或出錯，並讓狗狗年齡顯示小數點。
+        humanAge = 31; // 剛出生設定為 31歲
+        // 當然，更精確的方式會是使用另一個幼犬公式或插值法。
+    } else {
+        // 應用自然對數公式: 16 * ln(狗狗年齡) + 31
+        // Math.log() 在 JavaScript 中就是自然對數 (ln)
+        humanAge = 16 * Math.log(dogAgeInYears) + 31;
+    }
+
+    // 3. 輸出結果
+
+    // 狗狗年齡顯示小數點後兩位
+    dogAgeDisplay.textContent = dogAgeInYears.toFixed(2) + ' 歲';
+
+    // 人類年齡顯示整數
+    humanAgeDisplay.textContent = Math.floor(humanAge) + ' 歲';
 }
 
-// 換算人類年齡
-function dogToHuman(dogYears, size) {
-  const mapping = { small: 4, medium: 5, large: 6 };
-  const perYear = mapping[size] || 5;
-
-  if (dogYears <= 0) return 0;
-  if (dogYears <= 1) return 15 * dogYears;
-  if (dogYears <= 2) return 15 + 9 * (dogYears - 1);
-
-  return 15 + 9 + perYear * (dogYears - 2);
-}
-
-function formatAge(y, m, d) {
-  const list = [];
-  if (y) list.push(`${y} 歲`);
-  if (m) list.push(`${m} 個月`);
-  if (d) list.push(`${d} 天`);
-  return list.length ? list.join(" ") : "0 天";
-}
-
-// 顯示結果
-function show(diff) {
-  if (!diff) {
-    $("dogAge").textContent = "請輸入有效的日期";
-    $("humanAge").textContent = "—";
-    return;
-  }
-
-  $("dogAge").textContent = formatAge(diff.years, diff.months, diff.days);
-  const size = $("size").value;
-  const human = dogToHuman(diff.totalYears, size);
-  $("humanAge").textContent = human.toFixed(1) + " 歲";
-}
-
-// 按鈕行為
-$("calc").addEventListener("click", () => {
-  const birthVal = $("birth").value;
-  if (!birthVal) return show(null);
-
-  const birth = new Date(birthVal + "T00:00:00");
-  const today = new Date();
-  show(dateDiff(birth, today));
-});
-
-$("reset").addEventListener("click", () => {
-  $("birth").value = "";
-  $("size").value = "medium";
-  $("dogAge").textContent = "—";
-  $("humanAge").textContent = "—";
-});
+// 頁面加載後立即計算妙麗的年齡 (使用 HTML 中預設的 value="2023-02-28")
+document.addEventListener('DOMContentLoaded', calculateAge);
