@@ -1,22 +1,100 @@
-document.getElementById("calcBtn").addEventListener("click", function () {
+/**
+ * app.js - 狗狗年齡計算機
+ * 包含 LocalStorage 儲存和載入邏輯
+ */
 
-    const dogName = document.getElementById("dogName").value.trim();
-    const birthDate = new Date(document.getElementById("birthDate").value);
+// --- 常量定義 ---
+const STORAGE_KEY = "dogAgeCalculatorData";
+const dogNameInput = document.getElementById("dogName");
+const birthDateInput = document.getElementById("birthDate");
+const calcBtn = document.getElementById("calcBtn");
+const resultBox = document.getElementById("result");
+
+
+// --- 年齡計算與顯示的核心函數 ---
+function calculateAndDisplayAge() {
+    const dogName = dogNameInput.value.trim();
+    const birthDateStr = birthDateInput.value;
+    const birthDate = new Date(birthDateStr);
     const today = new Date();
 
-    const diffMs = today - birthDate;
-    const dogAgeYears = diffMs / (1000 * 60 * 60 * 24 * 365.25);
-
-    if (dogAgeYears <= 0) {
-        document.getElementById("result").innerText = "出生日期不能是未來！";
+    // 檢查日期是否有效
+    if (!birthDateStr || isNaN(birthDate)) {
+        resultBox.innerHTML = "<p style='color:#c0392b;'>⚠️ 請輸入有效的狗狗出生日期。</p>";
+        // 清除上次結果
+        localStorage.removeItem(STORAGE_KEY);
         return;
     }
 
+    // 檢查日期是否在未來
+    if (birthDate >= today) {
+        resultBox.innerHTML = "<p style='color:#c0392b;'>⚠️ 出生日期不能是未來！</p>";
+        // 清除上次結果
+        localStorage.removeItem(STORAGE_KEY);
+        return;
+    }
+
+    // 1. 計算狗狗年齡 (以年為單位)
+    const diffMs = today - birthDate;
+    const dogAgeYears = diffMs / (1000 * 60 * 60 * 24 * 365.25); // 考慮閏年的平均天數
+
+    // 2. 換算人類年齡 (使用對數模型: $HumanAge = 16 \ln(DogAge) + 31$)
+    // 這是基於科學研究的一種較新、較準確的換算方法
     const humanAge = 16 * Math.log(dogAgeYears) + 31;
 
-    const dogAgeFixed = dogAgeYears.toFixed(1);
+    // 3. 格式化輸出
+    const dogAgeFixed = dogAgeYears.toFixed(2); // 保留兩位小數更精確
     const humanAgeFixed = Math.round(humanAge);
 
-    document.getElementById("result").innerText =
-        `${dogName} 現在在大約 ${dogAgeFixed} 歲狗狗年齡，換算成人類年齡大約是 ${humanAgeFixed} 歲。`;
-});
+    const resultHTML = `
+        <p>🎉 **${dogName}** 的歲數計算結果：</p>
+        <ul>
+            <li>**狗狗實際年齡：** 約 **${dogAgeFixed}** 歲</li>
+            <li>**換算人類年齡：** 約 **${humanAgeFixed}** 歲</li>
+        </ul>
+        <p style="margin-top:10px; font-size: 13px; color: #7f8c8d;">
+            （*人類年齡換算公式：16 * ln(狗齡) + 31*）
+        </p>
+    `;
+
+    resultBox.innerHTML = resultHTML;
+
+    // 4. *** 儲存結果到 LocalStorage ***
+    const dataToSave = {
+        dogName: dogName,
+        birthDate: birthDateStr,
+        resultHTML: resultBox.innerHTML
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+}
+
+// --- 頁面載入時初始化函數 ---
+function initialize() {
+    const storedData = localStorage.getItem(STORAGE_KEY);
+
+    if (storedData) {
+        const data = JSON.parse(storedData);
+        
+        // 載入上次輸入值
+        dogNameInput.value = data.dogName || "妙麗";
+        birthDateInput.value = data.birthDate || "2023-02-28";
+        
+        // 載入上次的運算結果
+        resultBox.innerHTML = data.resultHTML;
+        
+    } else {
+        // 如果沒有儲存的資料，初始化輸入框並清空結果
+        dogNameInput.value = dogNameInput.value || "妙麗";
+        birthDateInput.value = birthDateInput.value || "2023-02-28";
+        resultBox.innerHTML = "";
+    }
+}
+
+
+// --- 事件監聽與執行 ---
+
+// 1. 按鈕點擊事件：執行計算與儲存
+calcBtn.addEventListener("click", calculateAndDisplayAge);
+
+// 2. 頁面載入事件：載入上次資料 (實現重新整理後顯示上次結果)
+document.addEventListener("DOMContentLoaded", initialize);
